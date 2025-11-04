@@ -43,8 +43,13 @@ class FaceRecognizer:
     detector: facenet_pytorch.models.mtcnn.MTCNN, cv.FaceDetectorYN, str, default "MTCNN"
         Model used to detect faces in images:
         - If "MTCNN": initializes a MTCNN model from the `facenet_pytorch` library.
-        - If "OpenCV_Yunet": initializes a Yunet model from OpenCV.
+        - If "OpenCV_Yunet": initializes a Yunet model from OpenCV. The path to the model
+          weights must be indicated using the argument `model_path`.
         - If a `MTCNN` or `cv.FaceDetectorYN` instance is provided, it uses that model.
+    opencv_yunet_model_path: str, default `None`
+        Path to the OpenCV Yunet model weights file. This parameter is only used if
+        `detector` is set to "OpenCV_Yunet". User can use function `download_opencv_yunet_model`
+        to download the model weights.
     encoder: facenet_pytorch.models.inception_resnet_v1.InceptionResnetV1, default `None`
         InceptionResnetV1 model used to obtain numerical embeddings of faces. If `None`, a new one
         is initialized.
@@ -109,6 +114,7 @@ class FaceRecognizer:
     def __init__(
         self,
         detector: facenet_pytorch.models.mtcnn.MTCNN | cv.FaceDetectorYN | str = "MTCNN",
+        opencv_yunet_model_path: str | None = None,
         encoder: (
             facenet_pytorch.models.inception_resnet_v1.InceptionResnetV1 | None
         ) = None,
@@ -172,6 +178,11 @@ class FaceRecognizer:
                 device=device,
             )
         if detector == "OpenCV_Yunet":
+            if opencv_yunet_model_path is None:
+                raise ValueError(
+                    "`opencv_yunet_model_path` must be provided when `detector` is 'OpenCV_Yunet'."
+                    "User can use function `download_opencv_yunet_model` to download the model weights."
+                )
             logging.info("Initializing OpenCV Yunet detector")
             use_cuda = torch.cuda.is_available()
             if use_cuda:
@@ -181,7 +192,7 @@ class FaceRecognizer:
                 backend_id = cv.dnn.DNN_BACKEND_OPENCV
                 target_id = cv.dnn.DNN_TARGET_CPU
             detector = cv.FaceDetectorYN.create(
-                model = "face_detection_yunet.onnx",
+                model = opencv_yunet_model_path,
                 config = "",
                 input_size = (320, 320),
                 score_threshold = 0.5,

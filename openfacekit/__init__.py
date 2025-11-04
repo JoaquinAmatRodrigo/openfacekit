@@ -8,6 +8,7 @@ from .face_recognition import (
 from .utils import (
     convert_to_matplotlib_rgb,
     convert_to_opencv_bgr,
+    download_opencv_yunet_model,
 )
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     "ReferenceEmbeddings", 
     "convert_to_matplotlib_rgb",
     "convert_to_opencv_bgr",
+    "download_opencv_yunet_model",
 ]

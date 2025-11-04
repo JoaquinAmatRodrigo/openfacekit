@@ -6,6 +6,8 @@
 # coding=utf-8
 
 from __future__ import annotations
+import os
+from urllib.request import urlretrieve
 import numpy as np
 import cv2
 import torch
@@ -96,3 +98,40 @@ def frame_generator(cap):
         if not ret:
             break
         yield frame
+
+def download_opencv_yunet_model(
+        save_path: None | str = None,
+        model_url: None | str = None,
+        ) -> str:
+    """
+    Downloads the OpenCV Yunet model weights file. If no `save_path` is provided,
+    the model is saved in the current working directory with the default name.
+    If no `model_url` is provided, the default OpenCV Yunet model URL is used: 
+    https://huggingface.co/opencv/face_detection_yunet/resolve/main/face_detection_yunet_2023mar.onnx?download=true
+
+    Parameters
+    ----------
+    save_path: str
+        Path to save the downloaded model weights file.
+    model_url: str
+        URL to download the model weights file.
+
+    Returns
+    -------
+    None
+    """
+
+    if model_url is None:
+        model_url = (
+            "https://huggingface.co/opencv/face_detection_yunet/resolve/main/"
+            "face_detection_yunet_2023mar.onnx?download=true"
+        )
+    if save_path is None:
+        save_path = os.path.join(os.getcwd(), "face_detection_yunet.onnx")
+    if not os.path.exists(save_path):
+        print("Downloading OpenCV Yunet model...")
+        urlretrieve(model_url, save_path)
+        print(f"Model downloaded and saved to {save_path}")
+    else:
+        print(f"Model already exists at {save_path}")
+    return save_path
