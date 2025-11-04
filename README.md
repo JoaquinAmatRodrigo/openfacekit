@@ -24,4 +24,4 @@ pip install git+https://github.com/JoaquinAmatRodrigo/openfacekit.git
 
 # Documentation and user guide
 
-Usage examples can be found in [OpenFaceKit Documentation](https://cienciadedatos.net/documentos/py34-face-detection-and-recognition-python).
+Usage examples can be found in [Face detection and recognition with deep learning and python](https://cienciadedatos.net/documentos/py34-face-detection-and-recognition-python).
