@@ -1,0 +1,84 @@
+[project]
+name = "openfacekit"
+version = "0.2.0"
+description = "OpenFaceKit is a Python library for face detection and recognition in images, videos and streams using deep learning models."
+readme = "README.md"
+authors = [
+    {name = "Joaquin Amat Rodrigo", email = "j.amatrodrigo@gmail.com"},
+]
+
+maintainers = [
+    {name = "Joaquin Amat Rodrigo", email = "j.amatrodrigo@gmail.com"},
+]
+
+classifiers = [
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+license = "BSD-3-Clause"
+license-files = ["LICENSE", "CITATION.cff"]
+
+keywords = [
+    "data-science",
+    "machine-learning",
+    "computer-vision",
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.3.2",
+    "matplotlib>=3.3, <3.11",
+    "torch>=2.4, <2.8; python_version < '3.13'",
+    "tqdm>=4.57",
+    "joblib>=1.1",
+    "opencv-python >= 4.10",
+    "facenet-pytorch>=2.5.3",
+    "pillow>=11.0",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+docs = [
+    "mike==2.1.3",
+    "mkdocs==1.6.1",
+    "mkdocs-jupyter==0.25.1",
+    "mkdocs-material==9.6.16",
+    "mkdocstrings==0.30.0",
+    "mkdocstrings-python==1.16.12",
+    "notebook==6.5.7",
+    "jupyter-contrib-nbextensions==0.7.0",
+    "black==25.1.0"
+    #"https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master"
+]
+
+test = [
+    "pytest>=7.3",
+    "pytest-cov>=4.1",
+    "pytest-xdist>=3.3",
+    "tomli>=2.0",
+    "pandas[parquet]>=1.5"
+]
+
+[project.urls]
+Homepage = "https://github.com/JoaquinAmatRodrigo/deep-face-recognition"
+Repository = "https://github.com/JoaquinAmatRodrigo/deep-face-recognition"
+Documentation = "https://github.com/JoaquinAmatRodrigo/deep-face-recognition"
+"Release Notes" = "https://github.com/JoaquinAmatRodrigo/deep-face-recognition"
+Download = "https://pypi.org/project/deepfacerecognition/#files"
+Tracker = "https://github.com/JoaquinAmatRodrigo/deep-face-recognition/issues"
+
+[build-system]
+requires = ["setuptools>=61", "toml", "build"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["deepfacerecognition", "deepfacerecognition*"]
+exclude = ["deepfacerecognition/**/tests/*"]
